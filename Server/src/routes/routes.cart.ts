@@ -1,14 +1,10 @@
-import { Router , Request , Response } from "express";
-const cartRouter = Router();
+import { Router } from "express";
+import CartController from "../controller/controller.cart";
+const router = Router();
 
-cartRouter.get("/getProducts",(req:Request,res:Response)=>{
-    
-})
+router.get('/:userId',CartController.getCart);
+router.post('/',CartController.createCart);
+router.put('/:id',CartController.updateCart);
+router.delete('/:id',CartController.deleteCart);
 
-cartRouter.get("/addProducts",(req:Request,res:Response)=>{
-
-})
-
-cartRouter.get("/deleteProducts",(req:Request,res:Response)=>{
-
-})
+export default router;

@@ -50,7 +50,7 @@ const productSchema = new mongoose_1.Schema({
         type: String, required: true
     },
     category: {
-        type: String, required: true
+        type: [String], required: true
     },
     tags: {
         type: [String], required: true

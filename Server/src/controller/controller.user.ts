@@ -15,7 +15,7 @@ const userController = {
             res.status(200).json({
                 type: "success",
                 data
-            });
+            }); 
         }catch(err){
             res.status(500).json({
                 type: "error",

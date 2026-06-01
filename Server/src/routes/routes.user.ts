@@ -1,15 +1,10 @@
-import { Router , Request , Response } from "express";
-const userRouter = Router();
+import { Router } from "express";
+import userController from "../controller/controller.user";
+import { accessLevelVerifier } from "../middleware/verifyToken";
+const router = Router();
 
-userRouter.post("/login",(req:Request,res:Response)=>{
+router.get('/:id',userController.getUser);
+router.put('/:id',accessLevelVerifier,userController.updateUser);
+router.delete('/:id',userController.deleteUser);
 
-})
-
-userRouter.post("/signup",(req:Request,res:Response)=>{
-
-})
-
-userRouter.post("/forget-password",(req:Request,res:Response)=>{
-
-})
-
+export default router;

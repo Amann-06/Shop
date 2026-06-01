@@ -4,7 +4,7 @@ export interface IProduct extends Document {
     price: number;
     image: string;
     description: string;
-    category: string;
+    category: string[];
     tags: string[];
     createdAt: Date;
 }
@@ -36,7 +36,25 @@ export declare const Product: mongoose.Model<IProduct, {}, {}, {
     }, "id"> & {
         id: string;
     }>;
+    description?: mongoose.SchemaDefinitionProperty<string, IProduct, mongoose.Document<unknown, {}, IProduct, {
+        id: string;
+    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
+        _id: mongoose.Types.ObjectId;
+    }> & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }>;
     name?: mongoose.SchemaDefinitionProperty<string, IProduct, mongoose.Document<unknown, {}, IProduct, {
+        id: string;
+    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
+        _id: mongoose.Types.ObjectId;
+    }> & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }>;
+    createdAt?: mongoose.SchemaDefinitionProperty<Date, IProduct, mongoose.Document<unknown, {}, IProduct, {
         id: string;
     }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
         _id: mongoose.Types.ObjectId;
@@ -63,16 +81,7 @@ export declare const Product: mongoose.Model<IProduct, {}, {}, {
     }, "id"> & {
         id: string;
     }>;
-    description?: mongoose.SchemaDefinitionProperty<string, IProduct, mongoose.Document<unknown, {}, IProduct, {
-        id: string;
-    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
-        _id: mongoose.Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "id"> & {
-        id: string;
-    }>;
-    category?: mongoose.SchemaDefinitionProperty<string, IProduct, mongoose.Document<unknown, {}, IProduct, {
+    category?: mongoose.SchemaDefinitionProperty<string[], IProduct, mongoose.Document<unknown, {}, IProduct, {
         id: string;
     }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
         _id: mongoose.Types.ObjectId;
@@ -82,15 +91,6 @@ export declare const Product: mongoose.Model<IProduct, {}, {}, {
         id: string;
     }>;
     tags?: mongoose.SchemaDefinitionProperty<string[], IProduct, mongoose.Document<unknown, {}, IProduct, {
-        id: string;
-    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
-        _id: mongoose.Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "id"> & {
-        id: string;
-    }>;
-    createdAt?: mongoose.SchemaDefinitionProperty<Date, IProduct, mongoose.Document<unknown, {}, IProduct, {
         id: string;
     }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
         _id: mongoose.Types.ObjectId;

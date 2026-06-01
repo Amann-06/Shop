@@ -5,7 +5,7 @@ const CartController = {
 
     async getCart( req: Request , res: Response ){
         try{
-            const cart = await Cart.findById(req.params.id);
+            const cart = await Cart.findById({ userId: req.params.userId});
             if(!cart){
                 return res.status(404).json({
                     type: "error",

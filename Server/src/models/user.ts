@@ -1,8 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
   password: string;
   profilePhoto: string;
@@ -15,15 +14,13 @@ export interface IUser extends Document {
     country: string;
     isDefault: boolean;
   }[];
+  resetOtp:string;
+  resetOtpExpires:Date;
 }
 
 const userSchema: Schema<IUser> = new Schema(
   {
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
+    username: {
       type: String,
       required: true,
     },
@@ -72,6 +69,12 @@ const userSchema: Schema<IUser> = new Schema(
         },
       },
     ],
+    resetOtp:{
+      type:String
+    },
+    resetOtpExpires:{
+      type:Date
+    }
   },
   {
     timestamps: true,

@@ -1,6 +1,10 @@
-import { Router , Request , Response } from "express";
-const orderRouter = Router();
+import { Router } from "express";
+import orderController from "../controller/controller.order";
+const router = Router();
 
-orderRouter.get("placeOrder",(req:Request,res:Response)=>{
+router.get('/:userId',orderController.getOrder);
+router.post('/',orderController.createOrder);
+router.put('/:id',orderController.updateOrder);
+router.delete('/:id',orderController.deleteOrder);
 
-})
+export default router;

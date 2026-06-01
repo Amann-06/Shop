@@ -1,11 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const userRouter = (0, express_1.Router)();
-userRouter.post("/login", (req, res) => {
-});
-userRouter.post("/signup", (req, res) => {
-});
-userRouter.post("/forget-password", (req, res) => {
-});
+const controller_user_1 = __importDefault(require("../controller/controller.user"));
+const verifyToken_1 = require("../middleware/verifyToken");
+const router = (0, express_1.Router)();
+router.get('/:id', controller_user_1.default.getUser);
+router.put('/:id', verifyToken_1.accessLevelVerifier, controller_user_1.default.updateUser);
+router.delete('/:id', controller_user_1.default.deleteUser);
+exports.default = router;
 //# sourceMappingURL=routes.user.js.map

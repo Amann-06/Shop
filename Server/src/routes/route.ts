@@ -1,12 +1,13 @@
-import { Router, Request,Response,NextFunction } from "express";
-const router = Router();
+import cartRouter from "./routes.cart";
+import orderRouter from "./routes.order";
+import userRouter from "./routes.user";
+import productRouter from "./routes.product";
+import authRouter from "./routes.auth";
 
-router.get('/',(req:Request,res:Response)=>{
-    res.send("Hello from server :>");
-})
-
-router.get("/login",(req:Request,res:Response)=>{
-    res.send("Login Page");
-})
-
-export default router;
+export {
+    cartRouter,
+    orderRouter,
+    userRouter,
+    productRouter,
+    authRouter
+}
