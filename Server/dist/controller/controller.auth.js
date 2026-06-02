@@ -59,15 +59,7 @@ const AuthController = {
     },
     async login(req, res) {
         try {
-            const identifier = req.body.username;
-            const isEmail = identifier.includes('@');
-            let user;
-            if (isEmail) {
-                user = await user_1.User.findOne({ email: identifier });
-            }
-            else {
-                user = await user_1.User.findOne({ username: identifier });
-            }
+            const user = await user_1.User.findOne({ email: req.body.email });
             if (!user) {
                 return res.status(404).json({
                     type: "error",
@@ -99,7 +91,11 @@ const AuthController = {
     },
     async sendVerificationCode(req, res) {
         try {
-            const user = await user_1.User.findOne({ email: req.body.email });
+            let user;
+            if (req.body.email)
+                user = await user_1.User.findOne({ email: req.body.email });
+            else
+                user = await user_1.User.findById(req.body.id);
             if (!user) {
                 return res.status(404).json({
                     type: "error",
@@ -111,7 +107,7 @@ const AuthController = {
             user.resetOtpExpires = new Date(Date.now() + 10 * 60 * 1000);
             await user.save();
             await transporter.sendMail({
-                from: process.env.EMAIL_USER,
+                from: config_1.default.emailUser,
                 to: user.email,
                 subject: "Verification code for password reset",
                 html: `
@@ -126,7 +122,8 @@ const AuthController = {
             });
             return res.status(200).json({
                 type: "success",
-                message: "OTP sent successfully"
+                message: "OTP sent successfully",
+                userId: user._id
             });
         }
         catch (err) {
@@ -139,16 +136,16 @@ const AuthController = {
     },
     async verifyVerificationCode(req, res) {
         try {
-            const user = await user_1.User.findOne({
-                email: req.body.email
-            });
+            console.log("BODY:", req.body);
+            console.log("OTP:", req.body.otp);
+            const user = await user_1.User.findById(req.params.id);
             if (!user) {
                 return res.status(404).json({
                     type: "error",
                     message: "User not found"
                 });
             }
-            if (user.resetOtp !== req.body.otp) {
+            if (String(user.resetOtp) !== String(req.body.otp)) {
                 return res.status(400).json({
                     type: "error",
                     message: "Verification code is incorrect"
