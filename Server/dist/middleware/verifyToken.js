@@ -7,7 +7,7 @@ exports.authenticationVerifier = exports.accessLevelVerifier = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config/config"));
 const authenticationVerifier = (req, res, next) => {
-    const authHeader = req.headers.token;
+    const authHeader = req.headers.authorization;
     if (!authHeader) {
         return res.status(401).json({
             type: "error",

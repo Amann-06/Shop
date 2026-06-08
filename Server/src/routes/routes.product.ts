@@ -1,11 +1,12 @@
 import { Router } from "express";
 import ProductController from "../controller/controller.product";
+import { authenticationVerifier } from "../middleware/verifyToken";
 const router = Router();
 
 router.get('/',ProductController.getProducts);
 router.get('/:id',ProductController.getProduct);
-router.post('/',ProductController.createProduct);
-router.put('/:id',ProductController.updateProduct);
-router.delete('/:id',ProductController.deleteProduct);
+router.post('/', authenticationVerifier, ProductController.createProduct);
+router.put('/:id', authenticationVerifier, ProductController.updateProduct);
+router.delete('/:id', authenticationVerifier, ProductController.deleteProduct);
 
 export default router;

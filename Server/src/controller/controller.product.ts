@@ -1,6 +1,10 @@
 import { Product } from "../models/product";
 import { Request , Response } from "express";
 
+interface AuthRequest extends Request {
+    userId?: string;
+}
+
 const ProductController = {
 
     async getProduct(req:Request,res:Response){
@@ -46,21 +50,27 @@ const ProductController = {
             })
         }
     },
-    async createProduct(req:Request,res:Response){
-        const newProduct = new Product(req.body);
-        try{
+    async createProduct(req: AuthRequest, res: Response) {
+        try {
+            const authReq = req as AuthRequest;
+
+            const newProduct = new Product({
+                ...req.body,
+                userId: authReq.userId
+            });
+
             const savedProduct = await newProduct.save();
+
             res.status(201).json({
                 type: "success",
-                message: "Product created successfully",
                 savedProduct
-            })
-        }catch(err){
+            });
+        } catch (err) {
             res.status(500).json({
                 type: "error",
                 message: "Something went wrong please try again",
                 err
-            })
+            });
         }
     },
     async updateProduct(req:Request,res:Response){

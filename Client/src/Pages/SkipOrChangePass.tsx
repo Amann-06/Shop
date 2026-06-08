@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/Button";
 
 const SkipOrChangePass = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   return (
     <div className="flex min-h-screen justify-center items-center bg-gray-50">
       <div className="shadow-md border p-10 rounded-xl w-96 text-center bg-white">
@@ -16,11 +17,11 @@ const SkipOrChangePass = () => {
         </p>
 
         <div className="flex flex-col gap-3">
-          <Button color="bg-purple-600 hover:bg-purple-700">
+          <Button onClick={()=>navigate(`/change-password/${id}`)} color="bg-purple-600 hover:bg-purple-700">
             Change Password
           </Button>
 
-          <Button onClick={()=>navigate('/lol')} color="bg-gray-500 hover:bg-gray-600">
+          <Button onClick={()=>navigate('/')} color="bg-gray-500 hover:bg-gray-600">
             Continue Without Changing
           </Button>
         </div>

@@ -7,7 +7,7 @@ export interface AuthRequest extends Request {
 }
 
 const authenticationVerifier = (req:AuthRequest,res:Response,next:NextFunction) => {
-    const authHeader = req.headers.token as string;
+   const authHeader = req.headers.authorization;
     if (!authHeader) {
         return res.status(401).json({
             type: "error",

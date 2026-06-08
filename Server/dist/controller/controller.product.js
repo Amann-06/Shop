@@ -49,12 +49,15 @@ const ProductController = {
         }
     },
     async createProduct(req, res) {
-        const newProduct = new product_1.Product(req.body);
         try {
+            const authReq = req;
+            const newProduct = new product_1.Product({
+                ...req.body,
+                userId: authReq.userId
+            });
             const savedProduct = await newProduct.save();
             res.status(201).json({
                 type: "success",
-                message: "Product created successfully",
                 savedProduct
             });
         }

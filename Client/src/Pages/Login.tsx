@@ -28,7 +28,9 @@ const Login = () => {
           setError(data.message);
           return;
         }
+        localStorage.setItem("token", data.accessToken);
         console.log("Logged in successfully");
+        navigate("/");
   }
   return (
     <div className="flex min-h-screen justify-center items-center">

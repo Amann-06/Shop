@@ -213,18 +213,6 @@ const AuthController = {
                 message:"User doesn't exists"
             })
         }
-        const isMatch = await bcrypt.compare(
-            req.body.currentPassword,
-            user.password
-        );
-
-        if (!isMatch) {
-            return res.status(400).json({
-                type: "error",
-                message: "Current password is incorrect"
-            });
-        }
-
         user.password = await bcrypt.hashSync(
             req.body.newPassword,
             10
