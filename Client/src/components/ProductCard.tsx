@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+
 interface ProductCardProps {
   id:string;
   image: string;
@@ -17,20 +20,33 @@ const ProductCard = ({
   rating,
   quantity,
 }: ProductCardProps) => {
+  const { setCartCount } = useContext(CartContext)!;
     const addToCart = async () => {
-    const token = localStorage.getItem("token");
-    await fetch("http://localhost:3000/api/cart", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-            productId:id,
-            quantity: 1,
-        }),
-    });
+      try{
+        const token = localStorage.getItem("token");
+        const response = await fetch("http://localhost:3000/api/cart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                productId:id,
+                quantity: 1,
+            }),
+        });
+        const data = await response.json();
+        if(!response.ok){
+          console.log(data.message);
+          return;
+        }
+        setCartCount(prev => prev + 1);
+        console.log("Product added successfully");
+      }catch(err){
+        console.log(`Failed to add to cart`,err);
+      }
     };
+    
   return (
     <div className="bg-white rounded-2xl border p-4 hover:shadow-lg transition-all">
         <div className="h-40 overflow-hidden rounded-xl bg-gray-100">
@@ -77,7 +93,7 @@ const ProductCard = ({
           </span>
         </div>
 
-        <button className="w-full mt-3 py-2 rounded-lg bg-blue-500 text-white text-sm hover:bg-blue-600 transition-colors">
+        <button onClick={addToCart} className="w-full mt-3 py-2 rounded-lg bg-blue-500 text-white text-sm hover:bg-blue-600 transition-colors">
           Add to Cart
         </button>
       </div>
