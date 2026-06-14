@@ -35,6 +35,54 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
+const reviewSchema = new mongoose_1.Schema({
+    userId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    userName: {
+        type: String,
+        required: true
+    },
+    rating: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+    },
+    comment: {
+        type: String,
+        default: ""
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+const shippingSchema = new mongoose_1.Schema({
+    packageType: {
+        type: String,
+        enum: ["Standard", "Express", "Fragile", "Bulk"],
+        default: "Standard"
+    },
+    weight: {
+        type: Number,
+        default: 0
+    },
+    estimatedDeliveryDays: {
+        type: Number,
+        default: 5
+    },
+    shippingCost: {
+        type: Number,
+        default: 0
+    },
+    freeShippingEligible: {
+        type: Boolean,
+        default: false
+    }
+});
 const productSchema = new mongoose_1.Schema({
     userId: {
         type: mongoose_1.Schema.Types.ObjectId,
@@ -46,16 +94,26 @@ const productSchema = new mongoose_1.Schema({
         required: true
     },
     price: {
-        type: Number, required: true
+        type: Number,
+        required: true
     },
-    image: {
-        type: String, required: true
+    discount: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 100
+    },
+    images: {
+        type: [String],
+        required: true
     },
     description: {
-        type: String, required: true
+        type: String,
+        required: true
     },
     category: {
-        type: [String], required: true
+        type: [String],
+        required: true
     },
     quantity: {
         type: Number,
@@ -63,13 +121,28 @@ const productSchema = new mongoose_1.Schema({
         min: 0
     },
     rating: {
-        type: Number
+        type: Number,
+        default: 0
     },
     tags: {
-        type: [String], required: true
+        type: [String],
+        required: true
+    },
+    sizes: {
+        type: [String],
+        default: []
+    },
+    reviews: {
+        type: [reviewSchema],
+        default: []
+    },
+    shipping: {
+        type: shippingSchema,
+        default: () => ({})
     },
     createdAt: {
-        type: Date, default: new Date()
+        type: Date,
+        default: Date.now
     }
 });
 exports.Product = mongoose_1.default.model("Product", productSchema);

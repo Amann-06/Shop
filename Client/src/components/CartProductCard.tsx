@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 interface CartProductCardProps {
     productId: string;
     img:string;
@@ -12,6 +13,7 @@ interface CartProductCardProps {
 const CartProductCard = ({productId,name,img,quantity,price,getCart}:CartProductCardProps) => {
   const [count,setCount] = useState(quantity);
   const { setCartCount } = useContext(CartContext)!;
+  const navigate = useNavigate();
   const updateCart = async (newCount:number) =>{
     const token  = localStorage.getItem("token");
     try{
@@ -54,6 +56,7 @@ const CartProductCard = ({productId,name,img,quantity,price,getCart}:CartProduct
             console.log("Failed to delete product");
             return;
         }
+        setCartCount(prev => prev - quantity);
         console.log("Product deleted successfully from cart");        
     }catch(err){
         console.log("Error in deleting",err);
@@ -84,10 +87,14 @@ const CartProductCard = ({productId,name,img,quantity,price,getCart}:CartProduct
     <div className="flex border shadow-sm items-center p-2 rounded-lg">
         <div className="flex flex-1 items-center justify-between">
             <div className=" flex gap-2 items-center flex-1">
-                <div className="border h-20 w-20 bg-gray-100 rounded-lg">
-                    <img src={img} alt="" className="object-cover object-center h-full w-full" />
+                <div
+                    onClick={()=>navigate(`/view-product/${productId}`)}
+                    className="border h-20 w-20 bg-gray-100 rounded-lg">
+                    <img src={img} alt="" className="object-cover object-center h-full w-full cursor-pointer" />
                 </div>
-                <h1 className="">{name}</h1>
+                <h1
+                    onClick={()=>navigate(`/view-product/${productId}`)}
+                    className="hover:underline underline-offset-2 cursor-pointer">{name}</h1>
             </div>
             <div className="flex gap-3 items-center flex-1">
                 <button

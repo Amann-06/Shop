@@ -1,14 +1,32 @@
 import mongoose, { Document, Types } from "mongoose";
+export interface IReview {
+    userId: Types.ObjectId;
+    userName: string;
+    rating: number;
+    comment: string;
+    createdAt: Date;
+}
+export interface IShipping {
+    packageType: string;
+    weight: number;
+    estimatedDeliveryDays: number;
+    shippingCost: number;
+    freeShippingEligible: boolean;
+}
 export interface IProduct extends Document {
     userId: Types.ObjectId;
     name: string;
     price: number;
-    image: string;
+    discount: number;
+    images: string[];
     description: string;
     category: string[];
     tags: string[];
-    rating: number;
+    sizes: string[];
     quantity: number;
+    rating: number;
+    reviews: IReview[];
+    shipping: IShipping;
     createdAt: Date;
 }
 export declare const Product: mongoose.Model<IProduct, {}, {}, {
@@ -48,34 +66,7 @@ export declare const Product: mongoose.Model<IProduct, {}, {}, {
     }, "id"> & {
         id: string;
     }>;
-    description?: mongoose.SchemaDefinitionProperty<string, IProduct, mongoose.Document<unknown, {}, IProduct, {
-        id: string;
-    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
-        _id: Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "id"> & {
-        id: string;
-    }>;
     name?: mongoose.SchemaDefinitionProperty<string, IProduct, mongoose.Document<unknown, {}, IProduct, {
-        id: string;
-    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
-        _id: Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "id"> & {
-        id: string;
-    }>;
-    quantity?: mongoose.SchemaDefinitionProperty<number, IProduct, mongoose.Document<unknown, {}, IProduct, {
-        id: string;
-    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
-        _id: Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "id"> & {
-        id: string;
-    }>;
-    createdAt?: mongoose.SchemaDefinitionProperty<Date, IProduct, mongoose.Document<unknown, {}, IProduct, {
         id: string;
     }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
         _id: Types.ObjectId;
@@ -93,7 +84,25 @@ export declare const Product: mongoose.Model<IProduct, {}, {}, {
     }, "id"> & {
         id: string;
     }>;
-    image?: mongoose.SchemaDefinitionProperty<string, IProduct, mongoose.Document<unknown, {}, IProduct, {
+    discount?: mongoose.SchemaDefinitionProperty<number, IProduct, mongoose.Document<unknown, {}, IProduct, {
+        id: string;
+    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
+        _id: Types.ObjectId;
+    }> & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }>;
+    images?: mongoose.SchemaDefinitionProperty<string[], IProduct, mongoose.Document<unknown, {}, IProduct, {
+        id: string;
+    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
+        _id: Types.ObjectId;
+    }> & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }>;
+    description?: mongoose.SchemaDefinitionProperty<string, IProduct, mongoose.Document<unknown, {}, IProduct, {
         id: string;
     }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
         _id: Types.ObjectId;
@@ -120,7 +129,52 @@ export declare const Product: mongoose.Model<IProduct, {}, {}, {
     }, "id"> & {
         id: string;
     }>;
+    sizes?: mongoose.SchemaDefinitionProperty<string[], IProduct, mongoose.Document<unknown, {}, IProduct, {
+        id: string;
+    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
+        _id: Types.ObjectId;
+    }> & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }>;
+    quantity?: mongoose.SchemaDefinitionProperty<number, IProduct, mongoose.Document<unknown, {}, IProduct, {
+        id: string;
+    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
+        _id: Types.ObjectId;
+    }> & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }>;
     rating?: mongoose.SchemaDefinitionProperty<number, IProduct, mongoose.Document<unknown, {}, IProduct, {
+        id: string;
+    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
+        _id: Types.ObjectId;
+    }> & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }>;
+    reviews?: mongoose.SchemaDefinitionProperty<IReview[], IProduct, mongoose.Document<unknown, {}, IProduct, {
+        id: string;
+    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
+        _id: Types.ObjectId;
+    }> & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }>;
+    shipping?: mongoose.SchemaDefinitionProperty<IShipping, IProduct, mongoose.Document<unknown, {}, IProduct, {
+        id: string;
+    }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
+        _id: Types.ObjectId;
+    }> & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }>;
+    createdAt?: mongoose.SchemaDefinitionProperty<Date, IProduct, mongoose.Document<unknown, {}, IProduct, {
         id: string;
     }, mongoose.DefaultSchemaOptions> & Omit<IProduct & Required<{
         _id: Types.ObjectId;

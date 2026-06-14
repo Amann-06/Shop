@@ -49,7 +49,7 @@ const CartController = {
             });
         }
         let cart = await Cart.findOne({
-        userId: req.userId
+            userId: req.userId
         });
 
         if (!cart) {

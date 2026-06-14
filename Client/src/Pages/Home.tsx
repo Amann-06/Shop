@@ -42,7 +42,7 @@ const Home = () => {
                 <ProductCard
                     key={product._id}
                     id={product._id}
-                    image={product.image}
+                    image={product.images[0]}
                     name={product.name}
                     category={product.category}
                     price={product.price}

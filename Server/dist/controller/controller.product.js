@@ -24,6 +24,7 @@ const ProductController = {
     async getProducts(req, res) {
         const qNew = req.query.new;
         const qCategory = req.query.category;
+        const qDiscounted = req.query.discounted;
         try {
             let products;
             if (qNew) {
@@ -34,6 +35,11 @@ const ProductController = {
                     category: {
                         $in: [qCategory]
                     }
+                });
+            }
+            else if (qDiscounted) {
+                products = await product_1.Product.find({
+                    discount: { $gt: 0 }
                 });
             }
             else {
@@ -108,6 +114,47 @@ const ProductController = {
             res.status(200).json({
                 type: "success",
                 message: "Product deleted successfully"
+            });
+        }
+        catch (err) {
+            res.status(500).json({
+                type: "error",
+                message: "Something went wrong please try again",
+                err
+            });
+        }
+    },
+    async addReview(req, res) {
+        try {
+            const { rating, comment, userName } = req.body;
+            if (!rating || rating < 1 || rating > 5) {
+                return res.status(400).json({
+                    type: "error",
+                    message: "Rating must be between 1 and 5"
+                });
+            }
+            const product = await product_1.Product.findById(req.params.id);
+            if (!product) {
+                return res.status(404).json({
+                    type: "error",
+                    message: "Product doesn't exists"
+                });
+            }
+            const review = {
+                userId: req.userId,
+                userName,
+                rating,
+                comment,
+                createdAt: new Date()
+            };
+            product.reviews.push(review);
+            const totalRating = product.reviews.reduce((sum, r) => sum + r.rating, 0);
+            product.rating = totalRating / product.reviews.length;
+            await product.save();
+            res.status(201).json({
+                type: "success",
+                message: "Review added successfully",
+                product
             });
         }
         catch (err) {

@@ -12,5 +12,6 @@ router.get('/:id', controller_product_1.default.getProduct);
 router.post('/', verifyToken_1.authenticationVerifier, controller_product_1.default.createProduct);
 router.put('/:id', verifyToken_1.authenticationVerifier, controller_product_1.default.updateProduct);
 router.delete('/:id', verifyToken_1.authenticationVerifier, controller_product_1.default.deleteProduct);
+router.post('/:id/review', verifyToken_1.authenticationVerifier, controller_product_1.default.addReview);
 exports.default = router;
 //# sourceMappingURL=routes.product.js.map

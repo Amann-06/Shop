@@ -9,6 +9,7 @@ const Cart = () => {
   const [products,setProducts] = useState([]);
   const { setCartCount } = useContext(CartContext)!;
   const totalPrice = products.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const totalDiscount = products.reduce((sum,item) => sum + (item.product.price * item.product.discount / 100) * item.quantity,0);
   const discount = 0;
   const token = localStorage.getItem("token");
   const getCart = async () => {  
@@ -98,7 +99,7 @@ const Cart = () => {
                             key={item.product._id}
                             productId={item.product._id}
                             name={item.product.name}
-                            img={item.product.image}
+                            img={item.product.images[0]}
                             price={item.product.price}
                             quantity={item.quantity}
                             getCart={getCart}
@@ -122,11 +123,11 @@ const Cart = () => {
                     </div>
                     <div className="flex justify-between text-gray-400 text-sm">
                         <span>Discount</span>
-                        <span>- ₹{discount}</span>
+                        <span>- ₹{totalDiscount}</span>
                     </div>
                     <div className="flex justify-between">
                         <span>Total</span>
-                        <span>₹{totalPrice-discount}</span>
+                        <span>₹{totalPrice-totalDiscount}</span>
                     </div>
                     <Button color="bg-black">Continue to checkout</Button>
                 </div>

@@ -9,6 +9,7 @@ import AddProduct from "./Pages/AddProduct"
 import Home from "./Pages/Home"
 import MyOrders from "./Pages/MyOrders"
 import Cart from "./Pages/Cart"
+import ViewProduct from "./Pages/ViewProduct"
 export default function App() {
   return (
     <BrowserRouter>
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="add-product" element={<AddProduct/>}/>
         <Route path="my-orders" element={<MyOrders/>}/>
         <Route path="/my-cart" element={<Cart/>}/>
+        <Route path="view-product/:id" element={<ViewProduct/>}/>
       </Routes>
     </BrowserRouter>
   )
