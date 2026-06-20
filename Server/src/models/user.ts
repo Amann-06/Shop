@@ -7,6 +7,7 @@ export interface IUser extends Document {
   profilePhoto: string;
   createdAt: Date;
   addresses: {
+    house:string;
     street: string;
     city: string;
     state: string;
@@ -38,6 +39,11 @@ const userSchema: Schema<IUser> = new Schema(
     },
     addresses: [
       {
+        house:{
+          type:String,
+          required:true,
+          trim:true
+        },
         street: {
           type: String,
           required: true,

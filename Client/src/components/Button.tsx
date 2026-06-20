@@ -4,6 +4,7 @@ interface ButtonProps {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   icon?: React.ReactNode;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -12,11 +13,13 @@ const Button = ({
   icon,
   onClick,
   type = "button",
+  disabled = false
 }: ButtonProps) => {
   return (
     <button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={`${color} px-4 py-2 flex gap-1 items-center text-center justify-center rounded ${color.includes("bg-white") ? "text-black" : "text-white"}`}
     >
       {icon}

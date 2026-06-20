@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import Navbar from '../components/Navbar';
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
-import Navbar from '../components/Navbar';
 
 interface Seller {
   name: string;
@@ -54,13 +54,14 @@ const ViewProduct = ({ onAddToCart, onWishlist, onContactSeller }: ViewProductPr
   const [activeImg, setActiveImg] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string>();
   const [wishlisted, setWishlisted] = useState(false);
-  const [descOpen, setDescOpen] = useState(true);
+  const [descOpen, setDescOpen] = useState(false);
   const [shippingOpen, setShippingOpen] = useState(true);
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewHover, setReviewHover] = useState(0);
   const [reviewComment, setReviewComment] = useState("");
   const [submittingReview, setSubmittingReview] = useState(false);
   const [reviewError, setReviewError] = useState("");
+  const { refreshCartCount } = useContext(CartContext)!;
   const navigate = useNavigate();
 
   const handleWishlist = () => {
@@ -69,7 +70,6 @@ const ViewProduct = ({ onAddToCart, onWishlist, onContactSeller }: ViewProductPr
   }
 
   const { id } = useParams();
-  const { setCartCount } = useContext(CartContext)!;
   useEffect(() => {
     let isMounted = true;
 
@@ -136,7 +136,7 @@ const ViewProduct = ({ onAddToCart, onWishlist, onContactSeller }: ViewProductPr
         console.log(data.message);
         return;
       }
-      setCartCount(prev => prev + 1);
+      await refreshCartCount();
       console.log("Product added successfully");
     } catch (err) {
       console.log(`Failed to add to cart`, err);
@@ -248,7 +248,7 @@ const ViewProduct = ({ onAddToCart, onWishlist, onContactSeller }: ViewProductPr
                     activeImg === i ? 'border-gray-900' : 'border-transparent'
                   }`}
                 >
-                  <img src={src} alt="" className="w-full h-full object-cover object-top" />
+                  <img src={src} alt="" className="w-full h-full object-cotain object-top" />
                 </button>
               ))}
             </div>

@@ -4,7 +4,7 @@ import SearchNav from './SearchNav'
 
 const CategoryTabs = () => {
   return (
-    <div className=' h-14 flex sticky top-14 bg-white items-center'>
+    <div className=' h-14 flex z-10 sticky top-14 bg-white items-center'>
       <div className='flex items-center px-10 justify-between flex-1 border-b h-full'>
             <h1 className='font-semibold text-black/90 text-2xl'>Explore</h1>
             {/* <div>

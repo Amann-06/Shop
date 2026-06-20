@@ -4,7 +4,7 @@ const user_1 = require("../models/user");
 const userController = {
     async getUser(req, res) {
         try {
-            const user = await user_1.User.findById(req.params.id);
+            const user = await user_1.User.findById(req.userId);
             if (!user) {
                 return res.status(404).json({
                     type: "error",
@@ -22,6 +22,41 @@ const userController = {
                 type: "error",
                 message: "Something went wrong please try again",
                 err
+            });
+        }
+    },
+    async addAddress(req, res) {
+        try {
+            const { house, street, city, state, postalCode, country, isDefault } = req.body;
+            if (isDefault) {
+                await user_1.User.findByIdAndUpdate(req.userId, {
+                    $set: { "addresses.$[].isDefault": false }
+                });
+            }
+            const user = await user_1.User.findByIdAndUpdate(req.userId, {
+                $push: {
+                    addresses: {
+                        house,
+                        street,
+                        city,
+                        state,
+                        postalCode,
+                        country,
+                        isDefault: isDefault || false,
+                    },
+                },
+            }, { new: true });
+            res.status(200).json({
+                type: "success",
+                message: "Address added successfully",
+                addresses: user?.addresses,
+            });
+        }
+        catch (err) {
+            res.status(500).json({
+                type: "error",
+                message: "Something went wrong",
+                err,
             });
         }
     },

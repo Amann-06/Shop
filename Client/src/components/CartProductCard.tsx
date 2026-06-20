@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react"
-import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 interface CartProductCardProps {
     productId: string;
@@ -12,7 +10,6 @@ interface CartProductCardProps {
 }
 const CartProductCard = ({productId,name,img,quantity,price,getCart}:CartProductCardProps) => {
   const [count,setCount] = useState(quantity);
-  const { setCartCount } = useContext(CartContext)!;
   const navigate = useNavigate();
   const updateCart = async (newCount:number) =>{
     const token  = localStorage.getItem("token");
@@ -56,7 +53,6 @@ const CartProductCard = ({productId,name,img,quantity,price,getCart}:CartProduct
             console.log("Failed to delete product");
             return;
         }
-        setCartCount(prev => prev - quantity);
         console.log("Product deleted successfully from cart");        
     }catch(err){
         console.log("Error in deleting",err);
@@ -65,7 +61,6 @@ const CartProductCard = ({productId,name,img,quantity,price,getCart}:CartProduct
 
     const handleIncrease = async () => {
         const newCount = count + 1;
-        setCartCount(prev => prev + 1);
         setCount(newCount);
 
         await updateCart(newCount);
@@ -74,7 +69,6 @@ const CartProductCard = ({productId,name,img,quantity,price,getCart}:CartProduct
 
     const handleDecrease = async () => {
         const newCount = Math.max(0, count - 1);
-        setCartCount(prev => prev - 1);
         if(newCount == 0)await deleteCart();
         else {
             setCount(newCount);

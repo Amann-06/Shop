@@ -54,6 +54,11 @@ const userSchema = new mongoose_1.Schema({
     },
     addresses: [
         {
+            house: {
+                type: String,
+                required: true,
+                trim: true
+            },
             street: {
                 type: String,
                 required: true,

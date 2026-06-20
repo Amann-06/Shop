@@ -1,10 +1,30 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [lastOrders, setLastOrders] = useState([]);
+  useEffect(() => {
+    const getLastOrders = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch("http://localhost:3000/api/order", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const data = await response.json();
+            if (!response.ok) return;
+            setLastOrders(data.orders.slice(0, 3));
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    getLastOrders();
+}, []);
   return (
     <aside className="w-56 sticky h-screen border-r bg-white p-6 flex flex-col top-0">
-      <h1 className="text-xl font-bold mb-8">Shopyy</h1>
+      <h1
+        onClick={()=>navigate("/")}
+        className="text-xl font-bold mb-8 cursor-pointer">Shopyy</h1>
       <div className="text-sm">
         <ul className="space-y-2 mt-10">
             <li className="px-4 py-3 rounded-full hover:bg-blue-500 transition-colors hover:text-white cursor-pointer flex gap-1 items-center">
@@ -48,6 +68,24 @@ const Sidebar = () => {
         </ul>
         <ul className="space-y-2 mt-5 border-t py-5">
             <h1 className="px-4 text-sm text-gray-400">Last orders</h1>
+            {lastOrders.length === 0 ? (
+                <li className="px-4 text-xs text-gray-300">No orders yet</li>
+            ) : (
+                lastOrders.map((order) => (
+                    <li
+                        key={order._id}
+                        onClick={() => navigate("/my-orders")}
+                        className="px-4 py-2 rounded-full hover:bg-blue-500 hover:text-white transition-colors cursor-pointer group"
+                    >
+                        <p className="text-xs font-medium truncate">
+                            #{order._id.slice(-6).toUpperCase()}
+                        </p>
+                        <p className="text-xs text-gray-400 transition-colors hover:text-white group-hover:text-white">
+                            ₹{order.amount} · {order.status}
+                        </p>
+                    </li>
+                ))
+            )}
         </ul>
       </div>
       <Button color="bg-white transition-colors hover:bg-blue-500 hover:text-white text-sm mt-auto" icon={

@@ -10,6 +10,9 @@ import Home from "./Pages/Home"
 import MyOrders from "./Pages/MyOrders"
 import Cart from "./Pages/Cart"
 import ViewProduct from "./Pages/ViewProduct"
+import Checkout from "./Pages/Checkout"
+import AddAddress from "./Pages/AddAddress"
+import Payment from "./Pages/Payment"
 export default function App() {
   return (
     <BrowserRouter>
@@ -29,6 +32,9 @@ export default function App() {
         <Route path="my-orders" element={<MyOrders/>}/>
         <Route path="/my-cart" element={<Cart/>}/>
         <Route path="view-product/:id" element={<ViewProduct/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
+        <Route path="/add-address" element={<AddAddress/>}/>
+        <Route path="/payment" element={<Payment/>}/>
       </Routes>
     </BrowserRouter>
   )

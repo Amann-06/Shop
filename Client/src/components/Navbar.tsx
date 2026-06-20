@@ -1,22 +1,48 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Search from "./Search"
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import refreshCartCount from "./refreshCartCount";
 
 const Navbar = () => {
   const [pastOrders,setPastOrders] = useState(0);
   const navigate = useNavigate();
   const { cartCount } = useContext(CartContext)!;
+  useEffect(()=>{
+    refreshCartCount()
+  },[])
+  useEffect(() => {
+    const getRecentOrders = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch("http://localhost:3000/api/order", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const data = await response.json();
+            if (!response.ok) return;
+            const last7days = data.orders.filter((order) => {
+                const orderDate = new Date(order.createdAt);
+                const diff = (Date.now() - orderDate.getTime()) / (1000 * 60 * 60 * 24);
+                return diff <= 7;
+            });
+            setPastOrders(last7days.length);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    getRecentOrders();
+    refreshCartCount();
+}, []);
   return (
-    <nav className="h-14 sticky top-0 bg-white flex items-center gap-5">
+    <nav className="h-14 sticky top-0 bg-white flex items-center gap-5 z-10">
         <div className="flex flex-1 items-center px-10">       
             <div className="flex items-center">
                 {
                     pastOrders > 0 &&
                     <h1 className="text-2xl text-black/80">{pastOrders}</h1>
                 }
-                <div className="border-r border-gray-400 h-4 mx-1"></div>
+                <div className="border-r border-gray-400 h-4 mx-3"></div>
                 <div className="flex flex-col text-sm">
                     <p>Orders</p>
                     <p className="text-gray-400 text-xs">Last 7 days</p>

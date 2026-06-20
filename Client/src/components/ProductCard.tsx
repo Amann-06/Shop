@@ -66,10 +66,9 @@ const ProductCard = ({
       </div>
 
       <div className="mt-3">
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-gray-500 h-4">
           {category.slice(0, 2).join(" • ")}
         </p>
-
         <h3
           onClick={() => navigate(`/view-product/${id}`)}
           className="font-medium mt-1 line-clamp-2 hover:underline underline-offset-2 transition-all cursor-pointer">

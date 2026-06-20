@@ -192,6 +192,7 @@ const AuthController = {
                 })
             }
             user.password = await bcrypt.hashSync(req.body.newPassword,10);
+            await user.save();
             res.status(200).json({
                 type:"success",
                 message:"Password changed successfully"

@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import CartStatus from "../components/CartStatus";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const [products,setProducts] = useState([]);
   const { setCartCount } = useContext(CartContext)!;
@@ -12,6 +13,8 @@ const Cart = () => {
   const totalDiscount = products.reduce((sum,item) => sum + (item.product.price * item.product.discount / 100) * item.quantity,0);
   const discount = 0;
   const token = localStorage.getItem("token");
+  const { refreshCartCount } = useContext(CartContext)!;
+  const navigate = useNavigate();
   const getCart = async () => {  
     try{
         const response = await fetch("http://localhost:3000/api/cart",{
@@ -28,6 +31,7 @@ const Cart = () => {
         }
         setProducts(data.cart.products);
         console.log('Cart fetched successfully');
+        await refreshCartCount();
     }catch(err){
         console.log("Error in Cart",err);
     }
@@ -50,6 +54,7 @@ const Cart = () => {
                 return;
             }
             setCartCount(0);
+            await refreshCartCount();
             await getCart();
         } catch (err) {
             console.log(err);
@@ -119,17 +124,17 @@ const Cart = () => {
                 <div className="flex flex-col space-y-2 my-5">
                     <div className="flex justify-between text-gray-400 text-sm">
                         <span>Subtotal</span>
-                        <span>₹{totalPrice}</span>
+                        <span>₹{totalPrice.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-gray-400 text-sm">
                         <span>Discount</span>
-                        <span>- ₹{totalDiscount}</span>
+                        <span>- ₹{totalDiscount.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                         <span>Total</span>
-                        <span>₹{totalPrice-totalDiscount}</span>
+                        <span>₹{(totalPrice-totalDiscount).toFixed(2)}</span>
                     </div>
-                    <Button color="bg-black">Continue to checkout</Button>
+                    <Button color="bg-black" disabled={products.length === 0} onClick={()=>navigate("/checkout")}>Continue to checkout</Button>
                 </div>
             </div>
         </div>

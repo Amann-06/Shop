@@ -6,6 +6,7 @@ export interface IUser extends Document {
     profilePhoto: string;
     createdAt: Date;
     addresses: {
+        house: string;
         street: string;
         city: string;
         state: string;

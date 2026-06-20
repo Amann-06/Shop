@@ -1,10 +1,14 @@
 import { User } from "../models/user";
 import { Request,Response } from "express";
 
+interface AuthRequest extends Request {
+    userId?:string;
+}
+
 const userController = {
-    async getUser(req:Request , res:Response){
+    async getUser(req:AuthRequest , res:Response){
         try{
-            const user = await User.findById(req.params.id);
+            const user = await User.findById(req.userId);
             if (!user) {
                 return res.status(404).json({
                     type: "error",
@@ -22,6 +26,55 @@ const userController = {
                 message: "Something went wrong please try again",
                 err
             })
+        }
+    },
+    async addAddress(req: AuthRequest, res: Response) {
+        try {
+
+            const {
+                house,
+                street,
+                city,
+                state,
+                postalCode,
+                country,
+                isDefault
+            } = req.body;
+
+            if (isDefault) {
+                await User.findByIdAndUpdate(req.userId, {
+                    $set: { "addresses.$[].isDefault": false }
+                });
+            }
+            const user = await User.findByIdAndUpdate(
+            req.userId,
+            {
+                $push: {
+                addresses: {
+                    house,
+                    street,
+                    city,
+                    state,
+                    postalCode,
+                    country,
+                    isDefault: isDefault || false,
+                },
+                },
+            },
+            { new: true }
+            );
+
+            res.status(200).json({
+            type: "success",
+            message: "Address added successfully",
+            addresses: user?.addresses,
+            });
+        } catch (err) {
+            res.status(500).json({
+            type: "error",
+            message: "Something went wrong",
+            err,
+            });
         }
     },
     async updateUser(req:Request,res:Response){
