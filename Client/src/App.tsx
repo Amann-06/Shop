@@ -13,6 +13,7 @@ import ViewProduct from "./Pages/ViewProduct"
 import Checkout from "./Pages/Checkout"
 import AddAddress from "./Pages/AddAddress"
 import Payment from "./Pages/Payment"
+import SearchPage from "./Pages/SearchPage"
 export default function App() {
   return (
     <BrowserRouter>
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/add-address" element={<AddAddress/>}/>
         <Route path="/payment" element={<Payment/>}/>
+        <Route path="/search" element={<SearchPage/>}/>
       </Routes>
     </BrowserRouter>
   )

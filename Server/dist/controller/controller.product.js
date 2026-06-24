@@ -25,22 +25,26 @@ const ProductController = {
         const qNew = req.query.new;
         const qCategory = req.query.category;
         const qDiscounted = req.query.discounted;
+        const qSearch = req.query.search;
         try {
             let products;
             if (qNew) {
                 products = await product_1.Product.find().sort({ createdAt: -1 }).limit(5);
             }
-            else if (qCategory) {
+            else if (qSearch) {
                 products = await product_1.Product.find({
-                    category: {
-                        $in: [qCategory]
-                    }
+                    $or: [
+                        { name: { $regex: qSearch, $options: "i" } },
+                        { category: { $in: [qSearch] } },
+                        { tags: { $in: [qSearch] } },
+                    ]
                 });
             }
+            else if (qCategory) {
+                products = await product_1.Product.find({ category: { $in: [qCategory] } });
+            }
             else if (qDiscounted) {
-                products = await product_1.Product.find({
-                    discount: { $gt: 0 }
-                });
+                products = await product_1.Product.find({ discount: { $gt: 0 } });
             }
             else {
                 products = await product_1.Product.find();
@@ -48,10 +52,7 @@ const ProductController = {
             res.status(200).json({ type: "success", products });
         }
         catch (err) {
-            res.status(500).json({
-                type: "error",
-                messsage: "Something went wrong please try again"
-            });
+            res.status(500).json({ type: "error", message: "Something went wrong" });
         }
     },
     async createProduct(req, res) {
