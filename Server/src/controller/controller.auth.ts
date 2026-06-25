@@ -169,9 +169,11 @@ const AuthController = {
                     message:"Verification code is expired"
                 })                
             }
+            const accessToken = jwt.sign({id:user._id},config.jwtSecret!,{expiresIn:"7d"});
             res.status(200).json({
                 type:"success",
-                message:"Password changed successfully"
+                message:"Password changed successfully",
+                accessToken
             })
         }catch(err){
             res.status(500).json({

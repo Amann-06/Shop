@@ -157,9 +157,11 @@ const AuthController = {
                     message: "Verification code is expired"
                 });
             }
+            const accessToken = jsonwebtoken_1.default.sign({ id: user._id }, config_1.default.jwtSecret, { expiresIn: "7d" });
             res.status(200).json({
                 type: "success",
-                message: "Password changed successfully"
+                message: "Password changed successfully",
+                accessToken
             });
         }
         catch (err) {

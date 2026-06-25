@@ -4,6 +4,7 @@ import Button from "./Button";
 const Sidebar = () => {
   const navigate = useNavigate();
   const [lastOrders, setLastOrders] = useState([]);
+  const  token = localStorage.getItem("token");
   useEffect(() => {
     const getLastOrders = async () => {
         try {
@@ -21,47 +22,48 @@ const Sidebar = () => {
     getLastOrders();
 }, []);
   return (
-    <aside className="w-56 sticky h-screen border-r bg-white p-6 flex flex-col top-0">
+    <aside className="w-56 sticky border bg-white p-5 flex flex-col top-3 mx-5 rounded-3xl shadow-md max-h-[calc(100vh-25px)]">
       <h1
         onClick={()=>navigate("/")}
-        className="text-xl font-bold mb-8 cursor-pointer">Shopyy</h1>
+        className="text-2xl font-bold mb-5 cursor-pointer text-center">Sh<span className="text-indigo-9500">o</span><span className="text-indigo-800">py<span className="text-indigo-700">y</span></span></h1>
       <div className="text-sm">
-        <ul className="space-y-2 mt-10">
-            <li className="px-4 py-3 rounded-full hover:bg-blue-500 transition-colors hover:text-white cursor-pointer flex gap-1 items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
+        <ul className="space-y-2 font-medium">
+            <li
+                onClick={()=>navigate("/")}
+                className="px-4 py-3 rounded-full hover:bg-indigo-600 transition-colors hover:text-white cursor-pointer flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 -mt-0.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                 </svg>
-                Popular Products
+                Home
             </li>
-            <li  className="px-4 py-3 rounded-full hover:bg-blue-500 transition-colors hover:text-white cursor-pointer flex gap-1 items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            <li  className="px-4 py-3 rounded-full hover:bg-indigo-600 transition-colors hover:text-white cursor-pointer flex gap-1 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 -mt-0.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
                 </svg>
-                Explore New
+                Category
             </li>
-            <li className="px-4 py-3 transition-colors rounded-full hover:bg-blue-500 hover:text-white cursor-pointer flex gap-1 items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+            <li className="px-4 py-3 transition-colors rounded-full hover:bg-indigo-600 hover:text-white cursor-pointer flex gap-1 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 -mt-0.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46" />
                 </svg>
-                Inspiration
+                New Arrivals
             </li>
         </ul>
-        <ul className="space-y-1 mt-5 border-t py-5">
-            <h1 className="px-4 text-sx text-gray-400">Quick actions</h1>
+        <ul className="space-y-2 mt-5 border-t py-3 font-medium">
+            <h1 className="px-4 text-sm text-gray-400 font-normal">Quick actions</h1>
             <li
                 onClick={()=>navigate("/add-product")}
-                className="px-4 py-3 transition-colors rounded-full hover:bg-blue-500 hover:text-white cursor-pointer flex gap-1 items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+                className="px-4 py-3 transition-colors rounded-full hover:bg-indigo-600 hover:text-white cursor-pointer flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 -mt-0.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
                 Add product
             </li>
             <li 
                 onClick={()=>navigate("/my-orders")}
-                className="px-4 py-3 transition-colors rounded-full hover:bg-blue-500 hover:text-white cursor-pointer flex gap-1 items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 3.75H6.912a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H15M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859M12 3v8.25m0 0-3-3m3 3 3-3" />
+                className="px-4 py-3 transition-colors rounded-full hover:bg-indigo-600 hover:text-white cursor-pointer flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 -mt-0.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                 </svg>
                 My Orders
             </li>
@@ -75,7 +77,7 @@ const Sidebar = () => {
                     <li
                         key={order._id}
                         onClick={() => navigate("/my-orders")}
-                        className="px-4 py-2 rounded-full hover:bg-blue-500 hover:text-white transition-colors cursor-pointer group"
+                        className="px-4 py-2 rounded-full hover:bg-indigo-600 hover:text-white transition-colors cursor-pointer group"
                     >
                         <p className="text-xs font-medium truncate">
                             #{order._id.slice(-6).toUpperCase()}
@@ -88,11 +90,14 @@ const Sidebar = () => {
             )}
         </ul>
       </div>
-      <Button color="bg-white transition-colors hover:bg-blue-500 hover:text-white text-sm mt-auto" icon={
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
-        </svg>
-      }>Log out</Button>
+      {
+        token &&
+        <Button color="bg-white py-3 hover:shadow-sm hover:bg-indigo-600 hover:text-white rounded-full text-sm mt-auto" icon={
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
+            </svg>
+        }>Log out</Button>
+      }
     </aside>
   );
 };

@@ -50,7 +50,7 @@ const Home = () => {
       <Sidebar />
       <div className="flex-1">
         <Navbar />
-        <CategoryTabs />
+        {/* <CategoryTabs /> */}
         <main className="p-6 space-y-5">
           <Hero />
           {loading ? (

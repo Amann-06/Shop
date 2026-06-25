@@ -11,7 +11,7 @@ const CategoryTabs = () => {
                 <div className=' bg-gray-100 shadow-sm py-2 px-4 rounded-full'>All</div>
             </div> */}
             <div className='flex items-center gap-2'>
-                <Search type='input'/>
+                <Search/>
                 <div className='flex items-center gap-1 text-sm bg-gray-100 px-2 py-2 rounded-full shadow-sm border'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />

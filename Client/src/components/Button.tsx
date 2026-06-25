@@ -20,7 +20,7 @@ const Button = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${color} px-4 py-2 flex gap-1 items-center text-center justify-center rounded ${color.includes("bg-white") ? "text-black" : "text-white"}`}
+      className={`${color} px-4 py-2 flex gap-1 items-center transition-all cursor-pointer text-center justify-center rounded ${color.includes("bg-white") ? "text-black" : "text-white"}`}
     >
       {icon}
       {children}

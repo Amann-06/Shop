@@ -16,7 +16,6 @@ const refreshCartCount = async () => {
     (sum: number, item: any) => sum + item.quantity,
     0
   );
-
   setCartCount(count);
 };
 

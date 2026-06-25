@@ -37,7 +37,7 @@ const Login = () => {
       <div className='shadow-md border p-10 rounded-xl items-center'>
         <h1 className='text-2xl text-center mb-10 font-semibold'>Login</h1>
         {error && (
-          <p className="text-red-500 mb-1 text-sm text-center">
+          <p className="text-red-500 mb-5 text-sm text-center">
             {error}
           </p>
         )}

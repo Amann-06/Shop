@@ -23,6 +23,7 @@ const CheckCode = () => {
                 alert(data.message || "Invalid code");
                 return;
             }
+            localStorage.setItem("token",data.accessToken);
             console.log("Code verified");
             navigate(`/verified-code/${id}`);
     }catch(err){

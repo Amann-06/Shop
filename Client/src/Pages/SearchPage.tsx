@@ -40,7 +40,6 @@ const SearchPage = () => {
       <Sidebar />
       <div className='flex-1'>
         <Navbar />
-        <CategoryTabs />
         <div className='px-10 py-5 space-y-5'>
           {loading ? (
             <p className='text-sm text-gray-400'>Searching...</p>
