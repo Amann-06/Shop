@@ -9,7 +9,10 @@ const Payment = () => {
   const { selectedAddress, totalAmount } = state;
   const [selected, setSelected] = useState("cod");
   const navigate = useNavigate();
-
+    if (!state?.selectedAddress) {
+    navigate("/checkout");
+    return null;
+  }
     const handlePayment = async () => {
         try {
         const token = localStorage.getItem("token");
@@ -30,7 +33,7 @@ const Payment = () => {
             }),
         });
         const data = await response.json();
-        if (!response.ok) return console.log("Order failed");
+        if (!response.ok) return console.log("Order failed",data);
         navigate("/order-confirmation");
         } catch (err) {
         console.log(err);
@@ -69,7 +72,7 @@ const Payment = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
+      <Navbar showLogo={true} />
       <CartStatus status="payment" />
 
       <div className="flex justify-center p-5">

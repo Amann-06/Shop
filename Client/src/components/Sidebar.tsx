@@ -5,6 +5,10 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [lastOrders, setLastOrders] = useState([]);
   const  token = localStorage.getItem("token");
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   useEffect(() => {
     const getLastOrders = async () => {
         try {
@@ -22,7 +26,7 @@ const Sidebar = () => {
     getLastOrders();
 }, []);
   return (
-    <aside className="w-56 sticky border bg-white p-5 flex flex-col top-3 mx-5 rounded-3xl shadow-md max-h-[calc(100vh-25px)]">
+    <aside className="w-56 sticky border p-5 flex flex-col top-3 mx-5 rounded-3xl shadow-md max-h-[calc(100vh-25px)]">
       <h1
         onClick={()=>navigate("/")}
         className="text-2xl font-bold mb-5 cursor-pointer text-center">Sh<span className="text-indigo-9500">o</span><span className="text-indigo-800">py<span className="text-indigo-700">y</span></span></h1>
@@ -36,7 +40,9 @@ const Sidebar = () => {
                 </svg>
                 Home
             </li>
-            <li  className="px-4 py-3 rounded-full hover:bg-indigo-600 transition-colors hover:text-white cursor-pointer flex gap-1 items-center">
+            <li
+                onClick={() => navigate("/categories")}
+                className="px-4 py-3 rounded-full hover:bg-indigo-600 transition-colors hover:text-white cursor-pointer flex gap-1 items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 -mt-0.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
                 </svg>
@@ -92,7 +98,9 @@ const Sidebar = () => {
       </div>
       {
         token &&
-        <Button color="bg-white py-3 hover:shadow-sm hover:bg-indigo-600 hover:text-white rounded-full text-sm mt-auto" icon={
+        <Button
+            onClick={handleLogout}
+            color="bg-transparent text-black py-3 hover:shadow-sm hover:bg-indigo-600 hover:text-white rounded-full text-sm mt-auto" icon={
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
             </svg>

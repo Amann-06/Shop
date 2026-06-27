@@ -26,7 +26,7 @@ const Search = () => {
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleSearch}
         placeholder="Search products..."
-        className="flex-1 max-w-2xl py-1 outline-none text-sm px-1"
+        className="flex-1 max-w-2xl py-1 outline-none text-sm px-1 bg-transparent"
       />
 
       <button

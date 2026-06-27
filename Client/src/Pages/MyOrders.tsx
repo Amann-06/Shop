@@ -59,7 +59,7 @@ const MyOrders = () => {
       <div className="flex-1">
         <Navbar />
         <div className="flex-1 flex justify-center py-5">
-          <main className="p-6 max-w-2xl border flex-1 rounded-xl">
+          <main className="p-6 max-w-3xl border flex-1 rounded-xl">
             <div className="flex items-center justify-between mb-6">
               <h1 className="text-lg font-medium">My orders</h1>
               <span className="text-sm text-gray-400">{orders.length} orders</span>

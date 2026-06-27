@@ -11,7 +11,6 @@ const Cart = () => {
   const { setCartCount } = useContext(CartContext)!;
   const totalPrice = products.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const totalDiscount = products.reduce((sum,item) => sum + (item.product.price * item.product.discount / 100) * item.quantity,0);
-  const discount = 0;
   const token = localStorage.getItem("token");
   const { refreshCartCount } = useContext(CartContext)!;
   const navigate = useNavigate();
@@ -67,7 +66,7 @@ const Cart = () => {
 
   return (
     <>  
-        <Navbar/>
+        <Navbar showLogo={true}/>
         <CartStatus status="cart"/>
         <div className="flex gap-5 px-32">
             <div className="flex-1 border rounded-2xl shadow-sm p-5 space-y-5">
@@ -118,7 +117,7 @@ const Cart = () => {
                     <h1 className="text-lg font-semibold">Promo code</h1>
                     <div className="flex border py-1 px-2 rounded-full">
                         <input type="text" placeholder="Type here..." className="flex-1 outline-none px-1 rounded-full"/>
-                        <Button color="bg-indigo-700/90 hover:bg-indigo-800/90 rounded-full w-24">Apply</Button>
+                        <Button color="bg-indigo-700/90 text-white hover:bg-indigo-800/90 rounded-full w-24">Apply</Button>
                     </div>
                 </div>
                 <div className="flex flex-col space-y-2 my-5">
@@ -134,7 +133,7 @@ const Cart = () => {
                         <span>Total</span>
                         <span>₹{(totalPrice-totalDiscount).toFixed(2)}</span>
                     </div>
-                    <Button color="bg-black hover:bg-black/85" disabled={products.length === 0} onClick={()=>navigate("/checkout")}>Continue to checkout</Button>
+                    <Button color="bg-black text-white hover:bg-black/85" disabled={products.length === 0} onClick={()=>navigate("/checkout")}>Continue to checkout</Button>
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@ const FloatingInput = ({ id, label, type = "text", icon, onChange, placeholder, 
         placeholder={placeholder ? placeholder : " "}
         onChange={onChange}
         value={value}
-        className="peer flex-grow h-10 outline-none px-2"
+        className="peer flex-grow h-10 outline-none px-2 bg-transparent"
         type={type === "password" ? showPassword ? "text" : "password" : type}
       />
       <label
@@ -32,7 +32,7 @@ const FloatingInput = ({ id, label, type = "text", icon, onChange, placeholder, 
           text-sm
           top-1/2 -translate-y-1/2
           transition-all duration-200
-          bg-white px-1
+          bg-gray-100 px-1
           peer-focus:left-7
           peer-focus:text-sm
           peer-focus:-top-3

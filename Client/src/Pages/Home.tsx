@@ -42,11 +42,12 @@ const Home = () => {
       price={product.price}
       rating={product.rating}
       quantity={product.quantity}
+      discount={product.discount}
     />
   ));
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen relative">
       <Sidebar />
       <div className="flex-1">
         <Navbar />
@@ -67,6 +68,7 @@ const Home = () => {
           )}
         </main>
       </div>
+      {/* <div className="absolute top-10 z-40 right-32 -translate-x-96 bg-white py-2 px-4 rounded-lg text-green-500">Product added to cart successfully</div> */}
     </div>
   );
 };

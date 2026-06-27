@@ -21,7 +21,7 @@ const SkipOrChangePass = () => {
             Change Password
           </Button>
 
-          <Button onClick={()=>navigate('/')} color="bg-gray-500 hover:bg-gray-600">
+          <Button onClick={()=>navigate('/')} color="bg-gray-500 hover:bg-gray-600 text-white">
             Continue Without Changing
           </Button>
         </div>

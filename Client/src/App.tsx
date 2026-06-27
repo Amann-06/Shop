@@ -14,6 +14,9 @@ import Checkout from "./Pages/Checkout"
 import AddAddress from "./Pages/AddAddress"
 import Payment from "./Pages/Payment"
 import SearchPage from "./Pages/SearchPage"
+import CategoryPage from "./Pages/CategoryPage"
+import SavedAddress from "./Pages/SavedAddress"
+import Wishlist from "./Pages/Wishlist"
 export default function App() {
   return (
     <BrowserRouter>
@@ -37,6 +40,9 @@ export default function App() {
         <Route path="/add-address" element={<AddAddress/>}/>
         <Route path="/payment" element={<Payment/>}/>
         <Route path="/search" element={<SearchPage/>}/>
+        <Route path="/categories" element={<CategoryPage />} />
+        <Route path="/saved-address" element={<SavedAddress/>}/>
+        <Route path="/wishlist" element={<Wishlist/>}/>
       </Routes>
     </BrowserRouter>
   )

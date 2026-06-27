@@ -191,8 +191,8 @@ const ViewProduct = ({ onAddToCart, onWishlist, onContactSeller }: ViewProductPr
 
   if (!product) {
     return <div>
-      <Navbar/>
-      <span>Loading..</span>
+      <Navbar showLogo={true}/>
+      <span className='text-center'>Loading..</span>
     </div>
   }
 
@@ -212,7 +212,7 @@ const ViewProduct = ({ onAddToCart, onWishlist, onContactSeller }: ViewProductPr
 
   return (
     <>
-      <Navbar/>
+      <Navbar showLogo={true}/>
     <div className="flex flex-col px-10 py-6 w-full font-sans text-gray-900 bg-white min-h-screen">
 
       <nav className="flex items-center gap-1.5 pb-6 text-sm text-gray-400">
